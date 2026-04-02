@@ -1,0 +1,79 @@
+训练
+python ./tools/train.py \
+code/drought/resnetv1d101_8xb32_in1k.py \
+--work-dir=work_dirs/dought/train 
+#--resume work_dirs/EfficientNetV2-S/trian/1204/epoch_100.pth
+
+python tools/visualization/vis_cam.py \
+    projects/Blast/dataset_1202/test/5/C-0016_4.jpg \
+    work_dirs/resnet50/train_1202/train.py \
+    work_dirs/resnet50/train_1202/best_accuracy_top1_epoch_95.pth \
+    --preview-model
+
+
+测试
+python tools/test.py \
+work_dirs/EfficientNetV2-S/trian/1204/trian_efficientnetv2-s_3rdparty_in21k.py \
+work_dirs/EfficientNetV2-S/trian/1204/no-pretrian/best_accuracy_top1_epoch_97.pth \
+--work-dir work_dirs/resnet50_test/1205/no-pretrain \
+--out work_dirs/resnet50_test/1205/no-pretrain/results_1205.pkl 
+
+分析
+python ./tools/analysis_tools/analyze_results.py \
+work_dirs/EfficientNetV2-S/test/1205/no-pretrain/trian_efficientnetv2-s_3rdparty_in21k.py \
+work_dirs/EfficientNetV2-S/test/1205/no-pretrain/results_1205.pkl \
+--out-dir work_dirs/EfficientNetV2-S/analyze/1205
+
+混淆矩阵
+python ./tools/analysis_tools/confusion_matrix.py \
+work_dirs/EfficientNetV2-S/test/1205/no-pretrain/trian_efficientnetv2-s_3rdparty_in21k.py \
+work_dirs/EfficientNetV2-S/test/1205/no-pretrain/results_1205.pkl \
+--show-path work_dirs/EfficientNetV2-S/analyze/1205/confusion_matrix.png \
+--include-values \
+--cmap "OrRd"
+# cmap 可选参数还有YlGnBu，YlOrBr，coolwarm
+
+tensorboard --logdir work_dirs/dought/train --port 6006
+
+可视化
+t-SNE
+python tools/visualization/vis_tsne.py \
+work_dirs/resnet50/train_1106/train.py \
+--checkpoint work_dirs/resnet50/train_1106/best_accuracy_top1_epoch_82.pth \
+--work-dir work_dirs/resnet50_analyze/1106 \
+--device cuda \
+--max-num-samples 200 \
+--perplexity 30 \
+--legend
+
+数据集可视化
+python tools/visualization/browse_dataset.py \
+work_dirs/resnet50/train_1106/train.py \
+--output-dir work_dirs/resnet50_analyze/1106/browse_dataset \
+--phase train \
+--show-number 10 \
+--channel-order BGR \
+--mode concat
+
+类别激活图CAM可视化
+python tools/visualization/vis_cam.py \
+projects/Blast/dataset_1106/val/4/C-0171_2.jpg \
+work_dirs/resnet50/train_1106/train.py \
+work_dirs/resnet50/train_1106/best_accuracy_top1_epoch_82.pth \
+--method GradCAM \
+--save-path work_dirs/resnet50_analyze/1106/CAM/C-0171_2.jpg \
+--device cuda
+
+
+
+python code/temp.py \
+work_dirs/resnet50/train_1106/train.py \
+--checkpoint work_dirs/resnet50/train_1106/best_accuracy_top1_epoch_82.pth \
+--work-dir work_dirs/resnet50_analyze/1124 \
+--device cuda \
+--num-samples-per-class 1330 \
+--perplexity 30 \
+--class-idx 0 \
+--max-heatmap-samples 50 \
+--legend
+
