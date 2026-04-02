@@ -9,10 +9,10 @@
 部分复现结果图已放置于 `assets/compare` 和 `assets/pred_only` 文件夹下。
 
 **原图、模型分割图、人工标注图对比：**
-![原图、模型分割图、人工标注图对比](./assets/compare/17_subset_overlap_0_1.png)
+<img src="./assets/compare/17_subset_overlap_0_1.png" alt="原图、模型分割图、人工标注图对比" width="100%">
 
 **模型分割图预测结果：**
-![仅模型分割图](./assets/pred_only/6_subset_overlap_1_0.png)
+<img src="./assets/pred_only/6_subset_overlap_1_0.png" alt="仅模型分割图" width="33%">
 
 ---
 
