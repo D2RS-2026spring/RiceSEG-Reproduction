@@ -18,7 +18,7 @@
 请参考 MMSegmentation 官方文档安装 PyTorch 和 MMCV，然后克隆本项目并编译：
 
 ```bash
-git clone [https://github.com/broucemonkey-stack/RiceSEG-Reproduction](https://github.com/broucemonkey-stack/RiceSEG-Reproduction)
+git clone https://github.com/broucemonkey-stack/RiceSEG-Reproduction
 cd mmsegmentation
 pip install -v -e .
 ```
