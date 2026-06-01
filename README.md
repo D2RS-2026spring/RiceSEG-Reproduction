@@ -154,9 +154,44 @@ RiceSEG-Reproduction/
 
 ---
 
-## 8. 参考
+## 8. 常见问题
+
+### 8.1 训练或测试时找不到数据集
+
+如果运行训练或测试命令时出现找不到图片、标注文件或数据目录的问题，请优先检查配置文件中的数据路径是否与 `data/mmseg_format/` 下的实际目录保持一致。路径不一致是语义分割复现实验中较常见的问题。
+
+### 8.2 测试时无法加载权重文件
+
+测试模型时需要指定已经训练完成的 `.pth` 权重文件。如果本地训练轮次或保存路径不同，请将命令中的 `iter_40000.pth` 替换为实际生成的权重文件名称。
+
+### 8.3 环境依赖版本不匹配
+
+MMSegmentation、MMCV 和 PyTorch 之间存在版本对应关系。如果运行过程中出现导入错误、算子编译错误或版本冲突问题，建议先检查本地依赖版本是否符合 MMSegmentation 官方文档要求。
+
+### 8.4 Mask 可视化结果没有生成
+
+运行可视化脚本前，请确认预测 mask 文件已经成功导出，并检查脚本中的输入路径和输出路径是否正确。如果输出目录不存在，可以先手动创建对应文件夹。
+
+---
+
+## 9. 复现流程检查清单
+
+在开始训练、测试或导出结果前，建议按照以下步骤检查项目配置：
+
+- [ ] 已正确安装 PyTorch、MMCV 和 MMSegmentation 相关依赖；
+- [ ] RiceSEG 数据集已经下载并解压；
+- [ ] 数据集已经整理为 `images/` 和 `masks/` 对应的目录结构；
+- [ ] `train`、`val` 和 `test` 子目录中的图像与标注文件能够一一对应；
+- [ ] 配置文件中的数据路径与本地实际路径保持一致；
+- [ ] 训练命令中的配置文件路径正确；
+- [ ] 测试命令中的模型权重路径正确；
+- [ ] 导出 mask 前已确认模型权重可以正常加载；
+- [ ] 可视化脚本中的输入路径和输出路径已经确认。
+
+---
+
+## 10. 参考
 
 * RiceSEG Dataset: https://www.global-rice.com/
 * MMSegmentation: https://github.com/open-mmlab/mmsegmentation
 * SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers
-
